@@ -35,18 +35,21 @@ class WidgetAccountAppBar extends StatelessWidget {
                         color: white1,
                         border: const Border(),
                         borderRadius: BorderRadius.circular(4)),
-                    child: Row(
-                      children: [
-                        const Icon(
-                          Icons.logout,
-                          size: 25,
-                          //  color: Colors.pink,
-                        ),
-                        Text(
-                          'Logout',
-                          style: style2,
-                        )
-                      ],
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Icons.logout,
+                            size: 25,
+                            //  color: Colors.pink,
+                          ),
+                          Text(
+                            'Logout',
+                            style: style2,
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ],
