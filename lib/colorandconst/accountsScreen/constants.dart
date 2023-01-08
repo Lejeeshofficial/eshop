@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 TextStyle style1 = const TextStyle(
   fontFamily: "RobotoSlab",
   color: white1,
-  fontSize: 22,
+  fontSize: 20,
 );
 TextStyle style2 = const TextStyle(
   fontFamily: "RobotoSlab",
