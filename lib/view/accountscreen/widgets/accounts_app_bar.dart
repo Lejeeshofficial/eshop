@@ -14,9 +14,10 @@ class WidgetAccountAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     double height1 = MediaQuery.of(context).size.height;
     return Container(
+      decoration: boxstyle,
       width: double.infinity,
-      height: height1 * .3,
-      color: appBarColor,
+      height: height1 * .25,
+      //  color: appBarColor,
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(

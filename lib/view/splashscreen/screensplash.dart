@@ -80,7 +80,7 @@ class _ScreenSplashState extends State<ScreenSplash> {
   Future<void> splashtimer() async {
     await Future.delayed(
       const Duration(
-        seconds: 6,
+        seconds: 4,
       ),
     );
     Navigator.pushReplacement(
