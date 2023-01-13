@@ -30,27 +30,31 @@ class WidgetHomeAppBar extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            Badge(
-              badgeColor: red1,
-              badgeContent: const Text(
-                '0',
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-              child: InkWell(
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ScreenCart(),
-                  ),
-                ),
-                child: const Icon(
-                  Icons.shopping_bag_outlined,
-                ),
-              ),
-            ),
+            cart_bag(context),
           ],
+        ),
+      ),
+    );
+  }
+
+  Badge cart_bag(BuildContext context) {
+    return Badge(
+      badgeColor: red1,
+      badgeContent: const Text(
+        '0',
+        style: TextStyle(
+          color: Colors.white,
+        ),
+      ),
+      child: InkWell(
+        onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const ScreenCart(),
+          ),
+        ),
+        child: const Icon(
+          Icons.shopping_bag_outlined,
         ),
       ),
     );

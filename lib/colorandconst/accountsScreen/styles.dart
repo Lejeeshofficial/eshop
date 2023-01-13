@@ -40,3 +40,13 @@ TextStyle style4 = const TextStyle(
 DottedLine dottedline = DottedLine(
   dashColor: appBarColor,
 );
+TextStyle queensandal = const TextStyle(
+  fontFamily: "RobotoSlab",
+  color: Colors.pink,
+  fontSize: 20,
+);
+
+TextStyle addtocart = TextStyle(
+  fontSize: 20,
+  fontFamily: "RobotoSlab",
+);

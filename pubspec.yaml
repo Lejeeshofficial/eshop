@@ -42,6 +42,10 @@ dependencies:
   bottom_navy_bar: ^6.0.0
   badges: ^2.0.3
   dotted_line: ^3.1.0
+  clippy_flutter: ^2.0.0-nullsafety.1
+   
+  flutter_rating_bar: ^4.0.1
+   
 
 dev_dependencies:
   flutter_test:

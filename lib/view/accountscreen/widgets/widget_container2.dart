@@ -22,7 +22,7 @@ class _WidgetContainer2State extends State<WidgetContainer2> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(10.0),
               child: RowsEach(
                 iconsName: Icons.person,
                 text2: "Contact Us",
@@ -31,7 +31,7 @@ class _WidgetContainer2State extends State<WidgetContainer2> {
             ),
             dottedline,
             Padding(
-              padding: EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(10.0),
               child: RowsEach(
                 iconsName: Icons.quiz_outlined,
                 text2: "FAQ",
@@ -40,7 +40,7 @@ class _WidgetContainer2State extends State<WidgetContainer2> {
             ),
             dottedline,
             Padding(
-              padding: EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(10.0),
               child: RowsEach1(
                 iconsName: Icons.location_on_outlined,
                 text2: "Privacy Policy",
@@ -49,7 +49,7 @@ class _WidgetContainer2State extends State<WidgetContainer2> {
             ),
             dottedline,
             Padding(
-              padding: EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(10.0),
               child: RowsEach1(
                 iconsName: Icons.toc,
                 text2: "Terms Conditions",

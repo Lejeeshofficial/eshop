@@ -1,5 +1,7 @@
 import 'package:eshop/colorandconst/loginscreen/color/colors.dart';
+import 'package:eshop/view/cartscreen/cart_screen.dart';
 import 'package:eshop/view/favouritescreen/favourite_screen.dart';
+import 'package:eshop/view/product_discriptions.dart/product_page.dart';
 import 'package:flutter/material.dart';
 
 class WidgetItems extends StatelessWidget {
@@ -84,7 +86,14 @@ class WidgetItems extends StatelessWidget {
                   ),
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ScreenProductDiscription(),
+                      ),
+                    );
+                  },
                   child: Container(
                     margin: const EdgeInsets.all(10),
                     child: Image.asset(
@@ -122,10 +131,18 @@ class WidgetItems extends StatelessWidget {
                             fontFamily: 'RobotoSlab',
                             fontSize: 20),
                       ),
-                      const Icon(
-                        Icons.shopping_cart_outlined,
-                        color: Colors.green,
-                        size: 25,
+                      InkWell(
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ScreenCart(),
+                          ),
+                        ),
+                        child: const Icon(
+                          Icons.shopping_cart_outlined,
+                          color: Colors.green,
+                          size: 25,
+                        ),
                       )
                     ],
                   ),
