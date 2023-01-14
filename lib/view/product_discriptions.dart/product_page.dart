@@ -1,5 +1,6 @@
 import 'package:badges/badges.dart';
 import 'package:clippy_flutter/arc.dart';
+import 'package:eshop/colorandconst/accountsScreen/colors.dart';
 
 // import 'package:eshop/colorandconst/accountsScreen/colors.dart';
 import 'package:eshop/colorandconst/accountsScreen/styles.dart';
@@ -49,6 +50,7 @@ class _ScreenProductDiscription extends State<ScreenProductDiscription> {
     );
     //--------------------------------------------------------------//
     return Scaffold(
+      backgroundColor: background,
       appBar: appBar2,
       body: ListView(
         children: [
@@ -61,6 +63,7 @@ class _ScreenProductDiscription extends State<ScreenProductDiscription> {
             arcType: ArcType.CONVEY,
             height: 30,
             child: Container(
+              height: 400,
               color: white1,
               width: double.infinity,
               child: Padding(

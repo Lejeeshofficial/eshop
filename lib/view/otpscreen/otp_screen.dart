@@ -61,8 +61,8 @@ class _ScreenOtpState extends State<ScreenOtp> {
                   margin: EdgeInsets.only(right: 10),
                   //onCodeChanged: (value) {},
                   focusedBorderColor: red1,
-                  fieldWidth: 60,
-                  numberOfFields: 4,
+                  fieldWidth: 40,
+                  numberOfFields: 6,
                   borderColor: red1,
                   showFieldAsBox: true,
                   onSubmit: (value) => Navigator.of(context).push(

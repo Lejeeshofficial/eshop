@@ -1,4 +1,5 @@
 import 'package:eshop/colorandconst/loginScreen/color/colors.dart';
+import 'package:eshop/view/address/Address.dart';
 import 'package:flutter/material.dart';
 
 import '../../../colorandconst/productScreen/stayle.dart';
@@ -49,17 +50,25 @@ class CartBottomNavBar extends StatelessWidget {
                 ),
               ],
             ),
-            Container(
-              alignment: Alignment.center,
-              height: 50,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: red1,
-                borderRadius: BorderRadius.circular(20),
+            InkWell(
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ScreenAddress(),
+                ),
               ),
-              child: Text(
-                "Check Out",
-                style: style2,
+              child: Container(
+                alignment: Alignment.center,
+                height: 50,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: red1,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Text(
+                  "Check Out",
+                  style: style2,
+                ),
               ),
             )
           ],
