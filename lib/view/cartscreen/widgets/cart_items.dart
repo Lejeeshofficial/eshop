@@ -9,15 +9,22 @@ import 'package:eshop/colorandconst/productScreen/constants.dart';
 import 'package:eshop/colorandconst/productScreen/stayle.dart';
 import 'package:flutter/material.dart';
 
-class WidgetCartItems extends StatelessWidget {
+class WidgetCartItems extends StatefulWidget {
   const WidgetCartItems({super.key});
+
+  @override
+  State<WidgetCartItems> createState() => _WidgetCartItemsState();
+}
+
+class _WidgetCartItemsState extends State<WidgetCartItems> {
+  int num = 0;
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         children: [
-          for (int i = 1; i < 4; i++)
+          for (int i = 0; i < 4; i++)
             Container(
               height: 120,
               margin: const EdgeInsets.symmetric(
@@ -33,10 +40,15 @@ class WidgetCartItems extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  Radio(
-                    value: "",
-                    groupValue: "",
-                    onChanged: (index) {},
+                  Radio<int>(
+                    value: num,
+                    groupValue: num,
+                    onChanged: (index) {
+                      setState(() {
+                        num = index!;
+                        // print("${index}---------");
+                      });
+                    },
                   ),
                   Container(
                     height: 70,
@@ -44,7 +56,7 @@ class WidgetCartItems extends StatelessWidget {
                     margin: const EdgeInsets.only(
                       right: 15,
                     ),
-                    child: Image.asset("lib/assets/$i.png"),
+                    child: Image.asset("lib/assets/${i + 1}.png"),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(

@@ -2,6 +2,7 @@ import 'package:eshop/colorandconst/accountsScreen/colors.dart';
 import 'package:eshop/colorandconst/accountsScreen/constants.dart';
 import 'package:eshop/colorandconst/accountsScreen/styles.dart';
 import 'package:eshop/view/accountscreen/widgets/widget_rowEach.dart';
+import 'package:eshop/view/orderslist/orderslist.dart';
 import 'package:flutter/material.dart';
 import 'package:dotted_line/dotted_line.dart';
 
@@ -26,10 +27,18 @@ class _WidgetContainer1State extends State<WidgetContainer1> {
           children: [
             Padding(
               padding: EdgeInsets.all(10.0),
-              child: RowsEach(
-                iconsName: Icons.shopping_cart_checkout_outlined,
-                text2: "Orders",
-                text1: "Check Your Order status",
+              child: InkWell(
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ScreenOrdersList(),
+                  ),
+                ),
+                child: RowsEach(
+                  iconsName: Icons.shopping_cart_checkout_outlined,
+                  text2: "Orders",
+                  text1: "Check Your Order status",
+                ),
               ),
             ),
             dottedline,

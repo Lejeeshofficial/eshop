@@ -92,15 +92,12 @@ class WidgetItems extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    if (guest == false) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              const ScreenProductDiscription(),
-                        ),
-                      );
-                    }
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ScreenProductDiscription(guest),
+                      ),
+                    );
                   },
                   child: Container(
                     margin: const EdgeInsets.all(10),

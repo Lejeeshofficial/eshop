@@ -13,8 +13,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class ScreenProductDiscription extends StatefulWidget {
-  const ScreenProductDiscription({super.key});
+  ScreenProductDiscription(this.guest, {super.key});
 
+  bool guest;
   @override
   State<ScreenProductDiscription> createState() => _ScreenProductDiscription();
 }
@@ -43,7 +44,7 @@ class _ScreenProductDiscription extends State<ScreenProductDiscription> {
             child: Icon(Icons.favorite, color: pink1)),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: cart_bag(context),
+          child: cartbag(context, widget.guest),
         ),
         kwidth20,
       ],
@@ -131,11 +132,11 @@ class _ScreenProductDiscription extends State<ScreenProductDiscription> {
           ),
         ],
       ),
-      bottomNavigationBar: const ProductNavBar(),
+      bottomNavigationBar: ProductNavBar(widget.guest),
     );
   }
 
-  Badge cart_bag(BuildContext context) {
+  Badge cartbag(BuildContext context, bool guest) {
     return Badge(
       badgeColor: red1,
       badgeContent: const Text(
@@ -145,12 +146,16 @@ class _ScreenProductDiscription extends State<ScreenProductDiscription> {
         ),
       ),
       child: InkWell(
-        onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const ScreenCart(),
-          ),
-        ),
+        onTap: () {
+          if (guest == false) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ScreenCart(),
+              ),
+            );
+          }
+        },
         child: const Icon(
           Icons.shopping_bag_outlined,
           color: Colors.black,

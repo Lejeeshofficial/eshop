@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 class WidgetHomeAppBar extends StatelessWidget {
   WidgetHomeAppBar(this.guest, {super.key});
   bool guest;
+
+  late String variable = (guest == false) ? "Hi UserName" : "LogIn Guest";
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,11 +21,11 @@ class WidgetHomeAppBar extends StatelessWidget {
               size: 30,
               //color: red1,
             ),
-            const Padding(
-              padding: EdgeInsets.only(left: 20.0),
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0),
               child: Text(
-                'Hi Lejeesh',
-                style: TextStyle(
+                variable,
+                style: const TextStyle(
                   fontFamily: "RobotoSlab",
                   color: red1,
                 ),

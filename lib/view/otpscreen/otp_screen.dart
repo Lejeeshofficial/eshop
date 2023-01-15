@@ -8,8 +8,8 @@ import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import '../../colorandconst/loginscreen/color/colors.dart';
 
 class ScreenOtp extends StatefulWidget {
-  const ScreenOtp({super.key});
-
+  ScreenOtp(this.phonenumber, {super.key});
+  String phonenumber;
   @override
   State<ScreenOtp> createState() => _ScreenOtpState();
 }
@@ -17,6 +17,7 @@ class ScreenOtp extends StatefulWidget {
 class _ScreenOtpState extends State<ScreenOtp> {
   FirebaseAuth auth = FirebaseAuth.instance;
   var code = '';
+  late String num = widget.phonenumber;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,11 +47,11 @@ class _ScreenOtpState extends State<ScreenOtp> {
                   ),
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.fromLTRB(30, 20, 0, 0),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(30, 20, 0, 0),
                 child: Text(
-                  "Sent via SMS to 9611693660",
-                  style: TextStyle(
+                  "Sent via SMS to ${num} ",
+                  style: const TextStyle(
                     color: black1,
                     //fontFamily: "RobotoSlab",
                     fontSize: 13,

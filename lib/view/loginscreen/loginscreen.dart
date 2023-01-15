@@ -72,7 +72,8 @@ class _ScreenLoginpageState extends State<ScreenLoginpage> {
                                 Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => ScreenOtp()),
+                                        builder: (context) =>
+                                            ScreenOtp(phonenumber)),
                                     (route) => false);
                                 // Navigator.push(
                                 //   context,

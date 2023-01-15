@@ -6,8 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ProductNavBar extends StatelessWidget {
-  const ProductNavBar({super.key});
-
+  ProductNavBar(this.guest, {super.key});
+  bool guest;
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
@@ -37,12 +37,14 @@ class ProductNavBar extends StatelessWidget {
             ),
             ElevatedButton.icon(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ScreenCart(),
-                    ),
-                  );
+                  if (guest == false) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ScreenCart(),
+                      ),
+                    );
+                  }
                 },
                 icon: const Icon(
                   CupertinoIcons.cart_badge_plus,
