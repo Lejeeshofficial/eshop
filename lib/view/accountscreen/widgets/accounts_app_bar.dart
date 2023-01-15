@@ -5,10 +5,16 @@ import 'package:eshop/colorandconst/accountsScreen/colors.dart';
 import 'package:eshop/colorandconst/accountsScreen/constants.dart';
 import 'package:eshop/colorandconst/accountsScreen/styles.dart';
 import 'package:eshop/colorandconst/loginscreen/color/colors.dart';
+import 'package:eshop/view/bottomnavigationscreen/bottomnavigationscreen.dart';
+import 'package:eshop/view/loginscreen/loginscreen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class WidgetAccountAppBar extends StatelessWidget {
-  WidgetAccountAppBar({super.key});
+  WidgetAccountAppBar(this.guest, {super.key});
+
+  bool guest;
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +27,12 @@ class WidgetAccountAppBar extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
-          children: const [
-            ProfileAndLogout(),
+          children: [
+            ProfileAndLogout(guest),
             kheight10,
-            CircularAvatar(),
+            const CircularAvatar(),
             kheight10,
-            NameWidget()
+            NameWidget(guest)
           ],
         ),
       ),
@@ -35,24 +41,29 @@ class WidgetAccountAppBar extends StatelessWidget {
 }
 
 class NameWidget extends StatelessWidget {
-  const NameWidget({
+  NameWidget(
+    this.guest, {
     Key? key,
   }) : super(key: key);
+  bool guest;
+  late String variable = (guest != false) ? "Guest" : "UserName";
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      "Lejeesh.k",
+      variable,
       style: style1,
     );
   }
 }
 
 class ProfileAndLogout extends StatelessWidget {
-  const ProfileAndLogout({
+  ProfileAndLogout(
+    this.guest, {
     Key? key,
   }) : super(key: key);
-
+  bool guest;
+  late String variable = (guest == false) ? "LogOut" : "LogIn";
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -64,31 +75,44 @@ class ProfileAndLogout extends StatelessWidget {
             style: style1,
           ),
           const Spacer(),
-          Container(
-            //color: white1,
-            //height: 10,
-            decoration: BoxDecoration(
-                color: white1,
-                border: const Border(),
-                borderRadius: BorderRadius.circular(4)),
-            child: Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: Row(
-                children: [
-                  const Icon(
-                    Icons.logout,
-                    size: 25,
-                    //  color: Colors.pink,
-                  ),
-                  Text(
-                    'Logout',
-                    style: style2,
-                  )
-                ],
+          InkWell(
+            onTap: () => signOut(context, guest),
+            child: Container(
+              //color: white1,
+              //height: 10,
+              decoration: BoxDecoration(
+                  color: white1,
+                  border: const Border(),
+                  borderRadius: BorderRadius.circular(4)),
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.logout,
+                      size: 25,
+                      //  color: Colors.pink,
+                    ),
+                    Text(
+                      variable,
+                      style: style2,
+                    )
+                  ],
+                ),
               ),
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  signOut(BuildContext context, bool guest) async {
+    await FirebaseAuth.instance.signOut();
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ScreenLoginpage(),
       ),
     );
   }

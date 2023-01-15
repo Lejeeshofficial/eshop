@@ -1,5 +1,7 @@
 import 'package:eshop/view/bottomnavigationscreen/bottomnavigationscreen.dart';
+import 'package:eshop/view/loginscreen/loginscreen.dart';
 import 'package:eshop/view/loginscreen/loginscreenusingpassword.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 
@@ -13,6 +15,8 @@ class ScreenOtp extends StatefulWidget {
 }
 
 class _ScreenOtpState extends State<ScreenOtp> {
+  FirebaseAuth auth = FirebaseAuth.instance;
+  var code = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,11 +69,33 @@ class _ScreenOtpState extends State<ScreenOtp> {
                   numberOfFields: 6,
                   borderColor: red1,
                   showFieldAsBox: true,
-                  onSubmit: (value) => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const ScreenBottomNavigation(),
-                    ),
-                  ),
+                  // onCodeChanged: (value) {
+                  //   code = value;
+                  // },
+                  onSubmit: (value) async {
+                    try {
+                      PhoneAuthCredential credential =
+                          PhoneAuthProvider.credential(
+                        verificationId: ScreenLoginpage.verify,
+                        smsCode: value,
+                      );
+
+                      // Sign the user in (or link) with the credential
+                      await auth.signInWithCredential(credential);
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (context) => const ScreenBottomNavigation(),
+                        ),
+                      );
+                    } catch (e) {
+                      print("$e wrong otp");
+                    }
+                  },
+                  // onSubmit: (value) => Navigator.of(context).push(
+                  //   MaterialPageRoute(
+                  //     builder: (context) => const ScreenBottomNavigation(),
+                  //   ),
+                  // ),
                 ),
               ),
               Padding(
@@ -94,38 +120,6 @@ class _ScreenOtpState extends State<ScreenOtp> {
                         ),
                       ),
                     ],
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(30, 30, 0, 0),
-                child: InkWell(
-                  onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ScreenloginPassword(),
-                      )),
-                  child: RichText(
-                    text: const TextSpan(
-                      text: ' Login Using  ',
-                      style: TextStyle(
-                        color: black1,
-                        fontFamily: "RobotoSlab",
-                        fontSize: 15,
-                        //fontWeight: FontWeight.w100,
-                      ),
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: " Password",
-                          style: TextStyle(
-                            color: red1,
-                            fontFamily: "RobotoSlab",
-                            fontSize: 15,
-                            //fontWeight: FontWeight.w100,
-                          ),
-                        ),
-                      ],
-                    ),
                   ),
                 ),
               ),

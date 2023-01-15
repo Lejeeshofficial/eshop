@@ -1,5 +1,10 @@
+import 'dart:math';
+
 import 'package:eshop/colorandconst/loginscreen/color/colors.dart';
+import 'package:eshop/main.dart';
 import 'package:eshop/view/bottomnavigationscreen/bottomnavigationscreen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class ScreenloginPassword extends StatefulWidget {
@@ -10,13 +15,50 @@ class ScreenloginPassword extends StatefulWidget {
 }
 
 class _ScreenloginPasswordState extends State<ScreenloginPassword> {
+  final emailcontroller = TextEditingController();
+  final passwordcontroller = TextEditingController();
+  final formkey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    emailcontroller.dispose();
+    passwordcontroller.dispose();
+    // TODO: implement dispose
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
+    return StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (snapshot.hasError) {
+            return const Text("something went wrong");
+          } else if (snapshot.hasData) {
+            return const ScreenBottomNavigation();
+          } else {
+            return Scaffold(
+              appBar: AppBar(),
+              body: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: signinwidget(context),
+                ),
+              ),
+            );
+          }
+        });
+  }
+
+  Column signinwidget(BuildContext context) {
+    return Column(
+      children: [
+        Form(
+          key: formkey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -38,7 +80,13 @@ class _ScreenloginPasswordState extends State<ScreenloginPassword> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 30, 20, 0),
                 child: TextFormField(
-                  //keyboardType: TextInputType.number,
+                  controller: emailcontroller,
+                  validator: ((value) {
+                    if (value!.isEmpty || !value.contains('@')) {
+                      return "Enter the valid email";
+                    }
+                  }),
+                  keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(02),
@@ -60,7 +108,13 @@ class _ScreenloginPasswordState extends State<ScreenloginPassword> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 30, 20, 0),
                 child: TextFormField(
-                  //keyboardType: TextInputType.number,
+                  obscureText: true,
+                  controller: passwordcontroller,
+                  validator: (value) {
+                    if (value!.isEmpty || value.length < 6) {
+                      return "The password must be 6 characters";
+                    }
+                  },
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(02),
@@ -82,12 +136,24 @@ class _ScreenloginPasswordState extends State<ScreenloginPassword> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 30, 20, 0),
                 child: InkWell(
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ScreenBottomNavigation(),
-                    ),
-                  ),
+                  onTap: () {
+                    if (formkey.currentState!.validate()) {
+                      signIn();
+                    }
+
+                    // Navigator.pushReplacement(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => const ScreenBottomNavigation(),
+                    //   ),
+                    // );
+                  },
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => const ScreenBottomNavigation(),
+                  //   ),
+                  // ),
                   child: Container(
                     height: 45,
                     width: MediaQuery.of(context).size.width,
@@ -135,7 +201,27 @@ class _ScreenloginPasswordState extends State<ScreenloginPassword> {
             ],
           ),
         ),
+      ],
+    );
+  }
+
+  signIn() async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => const Center(
+        child: CircularProgressIndicator(),
       ),
     );
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailcontroller.text.trim(),
+        password: passwordcontroller.text.trim(),
+      );
+    } on FirebaseAuthException catch (e) {
+      print(e);
+    }
+
+    navigatorKey.currentState!.pop((route) => route.isFirst);
   }
 }

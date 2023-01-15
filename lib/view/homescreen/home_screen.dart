@@ -1,23 +1,47 @@
+import 'dart:developer';
+
 import 'package:eshop/colorandconst/loginscreen/color/colors.dart';
 import 'package:eshop/view/homescreen/widgets/home_appbar.dart';
 import 'package:eshop/view/homescreen/widgets/widgets_categories.dart';
 import 'package:eshop/view/homescreen/widgets/widgets_items.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ScreenHome extends StatefulWidget {
-  const ScreenHome({super.key});
-
+  ScreenHome(this.guest, {super.key});
+  bool guest;
   @override
   State<ScreenHome> createState() => _ScreenHomeState();
 }
 
 class _ScreenHomeState extends State<ScreenHome> {
+  // bool guest = false;
+  // @override
+  // void initState() {
+  //   if (FirebaseAuth.instance.currentUser == null) {
+  //     guest = true;
+  //   }
+
+  //   // TODO: implement initState
+  //   super.initState();
+  // }
+
+  // @override
+  // void dispose() {
+  //   guest = false;
+  //   // TODO: implement dispose
+  //   super.dispose();
+  // }
+
   @override
   Widget build(BuildContext context) {
+    bool guest = widget.guest;
+    // final user = FirebaseAuth.instance.currentUser;
+    //log("${user!.email}-----------------------------------------");
     return Scaffold(
       body: ListView(
         children: [
-          const WidgetHomeAppBar(),
+          WidgetHomeAppBar(guest),
           Container(
             // height: 1000,
             padding: const EdgeInsets.only(top: 15),
@@ -73,7 +97,7 @@ class _ScreenHomeState extends State<ScreenHome> {
                     ),
                   ),
                 ),
-                WidgetCategories(),
+                WidgetCategories(guest),
                 Container(
                   alignment: Alignment.centerLeft,
                   margin: const EdgeInsets.symmetric(
@@ -88,7 +112,7 @@ class _ScreenHomeState extends State<ScreenHome> {
                     ),
                   ),
                 ),
-                WidgetItems(),
+                WidgetItems(guest),
               ],
             ),
           ),

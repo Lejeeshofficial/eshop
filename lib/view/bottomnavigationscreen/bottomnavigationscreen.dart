@@ -5,6 +5,7 @@ import 'package:eshop/view/cartscreen/cart_screen.dart';
 import 'package:eshop/view/categoriesscreen/categories_screen.dart';
 import 'package:eshop/view/favouritescreen/favourite_screen.dart';
 import 'package:eshop/view/homescreen/home_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ScreenBottomNavigation extends StatefulWidget {
@@ -15,12 +16,30 @@ class ScreenBottomNavigation extends StatefulWidget {
 }
 
 class _ScreenBottomNavigationState extends State<ScreenBottomNavigation> {
+  bool guest = false;
+  @override
+  void initState() {
+    if (FirebaseAuth.instance.currentUser == null) {
+      guest = true;
+    }
+
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    guest = false;
+    // TODO: implement dispose
+    super.dispose();
+  }
+
   int currentindex = 0;
-  List pages = const [
-    ScreenHome(),
-    ScreenCategories(),
-    ScreenFavourite(),
-    ScreenAccount(),
+  late List pages = [
+    ScreenHome(guest),
+    const ScreenCategories(),
+    const ScreenFavourite(),
+    ScreenAccount(guest),
   ];
   @override
   Widget build(BuildContext context) {

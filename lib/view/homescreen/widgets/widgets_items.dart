@@ -5,7 +5,8 @@ import 'package:eshop/view/product_discriptions.dart/product_page.dart';
 import 'package:flutter/material.dart';
 
 class WidgetItems extends StatelessWidget {
-  WidgetItems({super.key});
+  WidgetItems(this.guest, {super.key});
+  bool guest;
   List name = [
     'Sandals',
     'Watches',
@@ -70,12 +71,16 @@ class WidgetItems extends StatelessWidget {
                         ),
                       ),
                       InkWell(
-                        onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ScreenFavourite(),
-                          ),
-                        ),
+                        onTap: () {
+                          if (guest == false) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const ScreenFavourite(),
+                              ),
+                            );
+                          }
+                        },
                         child: const Icon(
                           Icons.favorite_border_outlined,
                           color: Colors.green,
@@ -87,12 +92,15 @@ class WidgetItems extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ScreenProductDiscription(),
-                      ),
-                    );
+                    if (guest == false) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              const ScreenProductDiscription(),
+                        ),
+                      );
+                    }
                   },
                   child: Container(
                     margin: const EdgeInsets.all(10),
@@ -132,12 +140,16 @@ class WidgetItems extends StatelessWidget {
                             fontSize: 20),
                       ),
                       InkWell(
-                        onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ScreenCart(),
-                          ),
-                        ),
+                        onTap: () {
+                          if (guest == false) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const ScreenCart(),
+                              ),
+                            );
+                          }
+                        },
                         child: const Icon(
                           Icons.shopping_cart_outlined,
                           color: Colors.green,

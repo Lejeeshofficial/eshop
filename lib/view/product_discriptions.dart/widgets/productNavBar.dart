@@ -36,12 +36,14 @@ class ProductNavBar extends StatelessWidget {
               style: styletotal,
             ),
             ElevatedButton.icon(
-                onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ScreenCart(),
-                      ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ScreenCart(),
                     ),
+                  );
+                },
                 icon: const Icon(
                   CupertinoIcons.cart_badge_plus,
                   size: 30,

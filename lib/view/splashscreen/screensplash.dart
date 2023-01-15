@@ -86,7 +86,7 @@ class _ScreenSplashState extends State<ScreenSplash> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: ((context) => const ScreenLoginpage()),
+        builder: ((context) => ScreenLoginpage()),
       ),
     );
   }

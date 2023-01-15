@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class WidgetCategories extends StatelessWidget {
-  WidgetCategories({super.key});
-
+  WidgetCategories(this.guest, {super.key});
+  bool guest;
   List name = [
     'Sandals',
     'Watches',

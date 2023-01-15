@@ -4,8 +4,8 @@ import 'package:eshop/view/cartscreen/cart_screen.dart';
 import 'package:flutter/material.dart';
 
 class WidgetHomeAppBar extends StatelessWidget {
-  const WidgetHomeAppBar({super.key});
-
+  WidgetHomeAppBar(this.guest, {super.key});
+  bool guest;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,14 +30,14 @@ class WidgetHomeAppBar extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            cart_bag(context),
+            cart_bag(context, guest),
           ],
         ),
       ),
     );
   }
 
-  Badge cart_bag(BuildContext context) {
+  Badge cart_bag(BuildContext context, bool guest) {
     return Badge(
       badgeColor: red1,
       badgeContent: const Text(
@@ -47,12 +47,16 @@ class WidgetHomeAppBar extends StatelessWidget {
         ),
       ),
       child: InkWell(
-        onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const ScreenCart(),
-          ),
-        ),
+        onTap: () {
+          if (guest == false) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ScreenCart(),
+              ),
+            );
+          }
+        },
         child: const Icon(
           Icons.shopping_bag_outlined,
         ),
