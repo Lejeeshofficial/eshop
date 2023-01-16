@@ -1,4 +1,5 @@
 import 'package:eshop/colorandconst/loginscreen/color/colors.dart';
+import 'package:eshop/provider/googlesigninprovider.dart';
 import 'package:eshop/view/bottomnavigationscreen/bottomnavigationscreen.dart';
 import 'package:eshop/view/loginscreen/loginscreenusingpassword.dart';
 import 'package:eshop/view/otpscreen/otp_screen.dart';
@@ -6,6 +7,7 @@ import 'package:eshop/view/signuppage/signupscreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 
 class ScreenLoginpage extends StatefulWidget {
   const ScreenLoginpage({super.key});
@@ -55,10 +57,12 @@ class _ScreenLoginpageState extends State<ScreenLoginpage> {
                       numbertextformfield(),
                       //------------------------------------------//
                       loginusingemailandpassowd(context),
+
+                      googleLogIn(context),
                       //------------------------------------------//
                       termsandprivacypolicy(),
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(20, 30, 20, 0),
+                        padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                         child: InkWell(
                           onTap: () async {
                             await FirebaseAuth.instance.verifyPhoneNumber(
@@ -100,6 +104,53 @@ class _ScreenLoginpageState extends State<ScreenLoginpage> {
             ),
           );
         });
+  }
+
+  Padding googleLogIn(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 20, 0, 0),
+      child: InkWell(
+        onTap: (() {
+          final provider =
+              Provider.of<GoogleSignInProvider>(context, listen: false);
+
+          try {
+            provider.googleLogin();
+          } catch (e) {
+            print(e);
+          }
+        }
+            //  Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (context) => ScreenBottomNavigation(),
+            //       ),
+            //     )),
+            ),
+        child: RichText(
+          text: const TextSpan(
+            text: 'Sign up with  ? ',
+            style: TextStyle(
+              color: black1,
+              fontFamily: "RobotoSlab",
+              fontSize: 15,
+              //fontWeight: FontWeight.w100,
+            ),
+            children: <TextSpan>[
+              TextSpan(
+                text: " Google",
+                style: TextStyle(
+                  color: red1,
+                  fontFamily: "RobotoSlab",
+                  fontSize: 17,
+                  //fontWeight: FontWeight.w100,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   SizedBox lottieimage() {
@@ -168,7 +219,7 @@ class _ScreenLoginpageState extends State<ScreenLoginpage> {
 
   Padding termsandprivacypolicy() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 30, 20, 0),
+      padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
       child: RichText(
         text: const TextSpan(
           text: 'By continuing, I agree to the  ',

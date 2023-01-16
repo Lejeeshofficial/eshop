@@ -76,7 +76,14 @@ class ProfileAndLogout extends StatelessWidget {
           ),
           const Spacer(),
           InkWell(
-            onTap: () => signOut(context, guest),
+            onTap: () {
+              if (guest == false) {
+                logOutAlertMessage(context, guest);
+              } else {
+                signOut(context, guest);
+              }
+            },
+            // signOut(context, guest),
             child: Container(
               //color: white1,
               //height: 10,
@@ -107,14 +114,70 @@ class ProfileAndLogout extends StatelessWidget {
     );
   }
 
+  logOutAlertMessage(BuildContext context, bool guest) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text(
+              "LouOut !",
+              style: TextStyle(
+                fontFamily: "RobotoSlab",
+                color: Colors.pink,
+              ),
+            ),
+            content: const Text(
+              "Are You Sure ?",
+              style: TextStyle(
+                fontFamily: "RobotoSlab",
+                //color: Colors.pink,
+              ),
+            ),
+            actions: [
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text(
+                  "NO",
+                  style: TextStyle(
+                    fontFamily: "RobotoSlab",
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    signOut(context, guest);
+                    // .whenComplet(
+                    //   () => Navigator.pushReplacement(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //       builder: (context) => ScreenLoginpage(),
+                    //     ),
+                    //   ),
+                    // );
+                  },
+                  child: const Text(
+                    "YES",
+                    style: TextStyle(
+                      fontFamily: "RobotoSlab",
+                      color: Colors.white,
+                    ),
+                  ))
+            ],
+          );
+        });
+  }
+
   signOut(BuildContext context, bool guest) async {
     await FirebaseAuth.instance.signOut();
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ScreenLoginpage(),
-      ),
-    );
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ScreenLoginpage(),
+        ),
+        (route) => false);
   }
 }
 

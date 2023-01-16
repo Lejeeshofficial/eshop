@@ -1,8 +1,15 @@
 import 'package:eshop/colorandconst/loginScreen/color/colors.dart';
 import 'package:flutter/material.dart';
 
-class WidgetReviewPayments extends StatelessWidget {
-  const WidgetReviewPayments({super.key});
+class WidgetReviewPayments extends StatefulWidget {
+  WidgetReviewPayments({super.key});
+
+  @override
+  State<WidgetReviewPayments> createState() => _WidgetReviewPaymentsState();
+}
+
+class _WidgetReviewPaymentsState extends State<WidgetReviewPayments> {
+  int? num;
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +30,13 @@ class WidgetReviewPayments extends StatelessWidget {
                     width: 10,
                   ),
                   Radio(
-                    value: "",
-                    groupValue: "",
-                    onChanged: (index) {},
+                    value: 1,
+                    groupValue: num,
+                    onChanged: (value) {
+                      setState(() {
+                        num = value;
+                      });
+                    },
                   ),
                   const SizedBox(
                     width: 10,
@@ -54,9 +65,13 @@ class WidgetReviewPayments extends StatelessWidget {
                     width: 10,
                   ),
                   Radio(
-                    value: 1,
-                    groupValue: 0,
-                    onChanged: (index) {},
+                    value: 2,
+                    groupValue: num,
+                    onChanged: (value) {
+                      setState(() {
+                        num = value;
+                      });
+                    },
                   ),
                   const SizedBox(
                     width: 10,
